@@ -1,46 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import getImageURL from './utils.js'
+import getImageUrl from './utils.js'
 
-function App() {
+function Card({children}){
   return (
-    <>
-    <Avatar 
-      person={{ 
-        name: 'Lin Lanying', 
-        imageId: '1bX5QH6'
-      }} 
-      size={100} />
-    <Avatar 
-      size={80}
-      person={{
-        name: 'Aklilu Lemma',
-        imageId: 'OKS67lh'
-      }}
-    />  
-    <Avatar 
-      size={50}
-      person={{
-        name: 'Katsuko Saruhashi',
-        imageId: 'YfeOqp2'
-      }}
-    />  
-  </>
-  )
+    <div className="card">
+      {children}
+    </div>
+  );
 }
 
-export default App
-
-function Avatar({person, size = 100}){
+function Avatar({ person, size }) {
   return (
     <img
-      className="avatar" 
-      src={getImageURL(person.imageId)} 
-      alt={person.name} 
+      className="avatar"
+      src={getImageUrl(person.imageId)}
+      alt={person.name}
       width={size}
       height={size}
     />
   );
 }
+
+
+
+function App() {
+  return (
+    <>
+      <Card>
+        <Avatar 
+          person={{ 
+            name: 'Lin Lanying', 
+            imageId: '1bX5QH6'
+          }} 
+          size={100} 
+        />
+      </Card>
+      <Card>
+        <Avatar 
+          size={80}
+          person={{
+            name: 'Aklilu Lemma',
+            imageId: 'OKS67lh'
+          }}
+          />  
+      </Card>
+      <Card>
+        <Avatar 
+          size={50}
+          person={{
+            name: 'Katsuko Saruhashi',
+            imageId: 'YfeOqp2'
+          }}
+          />  
+      </Card>
+    </>
+  )
+}
+
+export default App
+

@@ -1,7 +1,6 @@
 function getImageURL(imageId){
     var imageUrl = `https://i.imgur.com/${imageId}.jpg` 
-    console.log(imageUrl);
-    return imageUrl;
+        return imageUrl;
 }
 
 export default getImageURL;
