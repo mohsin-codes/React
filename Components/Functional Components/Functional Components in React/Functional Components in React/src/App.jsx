@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import React, { useState} from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [greeting, setGreeting] = useState(
+    'Hello Function Component!'
+  );
+  
+  const handleChange = (event) => setGreeting(event.target.value);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Headline headline={greeting}/>
+      <Input value={greeting} onChangeInput={handleChange}>
+        Set Greetings: 
+      </Input>
     </>
   )
 }
 
-export default App
+const Headline = ({headline}) => <h1>{headline}</h1>;
+
+const Input = ({value, onChangeInput, children}) =>(
+  <label>
+    {children} 
+    <input 
+          type="text"
+          value={value}
+          onChange={onChangeInput} />
+  </label>
+)
+
+export default App;
+
+
+
+/// Using Arrow (Lambda) Functions in ES6
+// const App = () => {
+//     const greeting = 'Hello Function Component!';
+//     const subHeading = 'Another generic sub heading!';
+//     //using another component containing props in one component
+//     return (
+//       <>
+//         <Headline value={greeting}/>
+//         <Heading value={subHeading}/>
+//       </>
+//     )
+// }
+
+// const Headline = (props) => {
+//   //utilizing props
+//   return <h1>{props.value}</h1>
+// }
+
+// const Heading = ({value}) => {
+//   return <h2>{value}</h2>
+// }
+
+// export default App
+
+//-------------------- Below code contains code defined in generic function format 
+//------------ Above code is refactored using the arrow method or Lambda functions used in ES6 
+// function App() {
+//   const greeting = 'Hello Function Component!';
+//   const subHeading = 'Another generic sub heading!';
+//   //using another component containing props in one component
+//   return (
+//     <>
+//       <Headline value={greeting}/>
+//       <Heading value={subHeading}/>
+//     </>
+//   )
+// }
+
+// function Headline(props){
+//   //utilizing props
+//   return <h1>{props.value}</h1>
+// }
+
+// //another component using the destructuring to destructure the elements from the props passed in the component
+// function Heading({value}){
+//   return <h2>{value}</h2>
+// }
