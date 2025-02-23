@@ -1,40 +1,105 @@
 import './App.css'
-import React, { useState} from 'react'
+import React, {useState, memo} from 'react'
 
+// in this we are using the 'Memo' library in react which helps 
+// in the rerendering of the component of the application
 const App = () => {
+  const [greeting, setGreeting] = useState('Hello React!');
   const [count, setCount] = useState(0);
 
   const handleIncrement = () => {
-    setTimeout(
-      () => setCount(currentCount => currentCount + 1)
-    , 1000)
+    setCount(currentCount  => currentCount + 1);
   }
 
   const handleDecrement = () => {
-    setTimeout(
-      () => setCount(currentCount => currentCount - 1)
-    , 1000)
+    setCount(currentCount => currentCount - 1);
   }
+
+  const handleChange = event => setGreeting(event.target.value);
 
   return (
     <div>
-      <h1>{count}</h1>
+      <input type="text" onChange={handleChange}/>
 
-      <Button handleClick={handleIncrement}>Increment</Button>
-      <Button handleClick={handleDecrement}>Decrement</Button>
+      <Count count={count} />
+
+      <button type='button' onClick={handleIncrement}>Increment</button>
+      <button type='button' onClick={handleDecrement}>Decrement</button>
     </div>
-  )
-}
+  );
+};
 
-const Button = ({handleClick, children}) => (
-  <button
-    type='button'
-    onClick={handleClick}>  
-      {children}
-  </button>
-)
+const Count = memo(({count}) => {
+  console.log('Does it (re)render?');
+
+  return <h1>{count}</h1>
+});
 
 export default App;
+
+// using localStorage for storing the state of a component 
+// and using 'useEffect()' hook to only change when there is an actual change in the state
+// const App = () => {
+//   const initialCount = +localStorage.getItem('storageCount') || 0;
+//   const [count, setCount] = useState(initialCount);
+
+//   const handleIncrement = () => {
+//     setCount(currentCount  => currentCount + 1);
+//   }
+
+//   const handleDecrement = () => {
+//     setCount(currentCount => currentCount - 1);
+//   }
+
+//   useEffect(() => localStorage.setItem('storageCount', count), [count]);
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+
+//       <button type='button' onClick={handleIncrement}>Increment</button>
+//       <button type='button' onClick={handleDecrement}>Decrement</button>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+//Async functions
+// const App = () => {
+//   const [count, setCount] = useState(0);
+
+//   const handleIncrement = () => {
+//     setTimeout(
+//       () => setCount(currentCount => currentCount + 1)
+//     , 1000)
+//   }
+
+//   const handleDecrement = () => {
+//     setTimeout(
+//       () => setCount(currentCount => currentCount - 1)
+//     , 1000)
+//   }
+
+//   return (
+//     <div>
+//       <h1>{count}</h1>
+
+//       <Button handleClick={handleIncrement}>Increment</Button>
+//       <Button handleClick={handleDecrement}>Decrement</Button>
+//     </div>
+//   )
+// }
+
+// const Button = ({handleClick, children}) => (
+//   <button
+//     type='button'
+//     onClick={handleClick}>  
+//       {children}
+//   </button>
+// )
+
+// export default App;
 
 //Using async in Component function
 // const App = () => {
