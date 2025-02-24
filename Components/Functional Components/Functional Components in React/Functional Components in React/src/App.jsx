@@ -1,41 +1,119 @@
 import './App.css'
-import React, {useState, memo} from 'react'
+import React, {useState, memo, useEffect, useRef} from 'react'
+import PropTypes from 'prop-types'
 
-// in this we are using the 'Memo' library in react which helps 
-// in the rerendering of the component of the application
 const App = () => {
-  const [greeting, setGreeting] = useState('Hello React!');
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount(currentCount  => currentCount + 1);
-  }
-
-  const handleDecrement = () => {
-    setCount(currentCount => currentCount - 1);
-  }
+  const [greeting, setGreeting] = useState(
+    'Hello Function Component!'
+  );
 
   const handleChange = event => setGreeting(event.target.value);
-
   return (
-    <div>
-      <input type="text" onChange={handleChange}/>
+    <Headline headline={greeting} onChangeHeadline={handleChange}/>
+  )
+}
 
-      <Count count={count} />
+const Headline = ({headline, onChangeHeadline}) => ( //: {headline : string, onChangeHeadline: Function}) 
+  <div>
+    <h1>{headline}</h1>
 
-      <button type='button' onClick={handleIncrement}>Increment</button>
-      <button type='button' onClick={handleDecrement}>Decrement</button>
-    </div>
-  );
-};
-
-const Count = memo(({count}) => {
-  console.log('Does it (re)render?');
-
-  return <h1>{count}</h1>
-});
+    <input type='text' value={headline} onChange={onChangeHeadline} />
+  </div>
+);
 
 export default App;
+// Using PropTypes
+// const App = () => {
+//   const greeting = 'Hello Function Component';
+
+//   return <Headline value={greeting} />
+// }
+
+// const Headline = ({value}) => {
+//   return <h1>{value}</h1>;
+// }
+
+// Headline.propTypes = {
+//   value : PropTypes.string.isRequired,
+// }
+
+// export default App;
+
+
+// Using useRef Hook
+// const App = () => {
+//   const [greeting, setGreeting] = useState('Hello React!');
+
+//   const handleChange = event => setGreeting(event.target.value);
+
+//   return (
+//     <div>
+//       <h1>{greeting}</h1>
+
+//       <Input value={greeting} />
+//     </div>
+//   )
+// }
+
+// const Input = ({value, handleChange}) =>{
+//   const ref = useRef();
+
+//   useEffect(() => ref.current.focus(), []);
+
+//   return (
+//     <input 
+//       type="text"
+//       value={value}
+//       onChange={handleChange}
+//       ref={ref} />
+//     )
+// }
+
+// export default App;
+// This example shows how we can use multiple files to store and manage the components.
+// const App = () => {
+//   const greeting = 'Hello Function Component!';
+
+//   return <Headline value={greeting}/>
+// }
+
+// export default App;
+
+// // in this we are using the 'Memo' library in react which helps 
+// // in the rerendering of the component of the application
+// const App = () => {
+//   const [greeting, setGreeting] = useState('Hello React!');
+//   const [count, setCount] = useState(0);
+
+//   const handleIncrement = () => {
+//     setCount(currentCount  => currentCount + 1);
+//   }
+
+//   const handleDecrement = () => {
+//     setCount(currentCount => currentCount - 1);
+//   }
+
+//   const handleChange = event => setGreeting(event.target.value);
+
+//   return (
+//     <div>
+//       <input type="text" onChange={handleChange}/>
+
+//       <Count count={count} />
+
+//       <button type='button' onClick={handleIncrement}>Increment</button>
+//       <button type='button' onClick={handleDecrement}>Decrement</button>
+//     </div>
+//   );
+// };
+
+// const Count = memo(({count}) => {
+//   console.log('Does it (re)render?');
+
+//   return <h1>{count}</h1>
+// });
+
+// export default App;
 
 // using localStorage for storing the state of a component 
 // and using 'useEffect()' hook to only change when there is an actual change in the state
